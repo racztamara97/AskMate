@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @org.springframework.stereotype.Controller
 @Scope("session")
 @SessionAttributes({"userToLogin", "question"})
@@ -44,5 +46,16 @@ public class Controller {
         return "redirect:/";
     }
 
+    @PostMapping("/login")
+    public String loginForm(HttpSession session, @ModelAttribute("userToLogin") User user){
+        if(loginService.checkUserExists(user.getUsername(), user.getPassword())){
+            session.setAttribute("user", user);
+            System.out.println(user);
+
+            return "redirect:/";
+        } else {
+            return "redirect:/registration";
+        }
+    }
 
 }
