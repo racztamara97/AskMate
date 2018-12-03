@@ -1,7 +1,5 @@
 package com.code.cool.askmate.askmate.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 
 @Entity(name = "Questions")
@@ -11,7 +9,7 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
     private int user_id;
-    private String question_name;
+    private String question_title;
     private String question_description;
     private int vote_number;
 
@@ -20,7 +18,7 @@ public class Question {
 
     public Question(int user_id, String question_name, String question_description, int vote_number) {
         this.user_id = user_id;
-        this.question_name = question_name;
+        this.question_title = question_name;
         this.question_description = question_description;
         this.vote_number = vote_number;
     }
@@ -41,12 +39,12 @@ public class Question {
         this.user_id = user_id;
     }
 
-    public String getQuestion_name() {
-        return question_name;
+    public String getQuestion_title() {
+        return question_title;
     }
 
-    public void setQuestion_name(String question_name) {
-        this.question_name = question_name;
+    public void setQuestion_title(String question_title) {
+        this.question_title = question_title;
     }
 
     public String getQuestion_description() {
