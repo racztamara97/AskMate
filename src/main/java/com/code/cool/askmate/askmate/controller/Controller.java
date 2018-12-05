@@ -5,6 +5,8 @@ import com.code.cool.askmate.askmate.model.User;
 import com.code.cool.askmate.askmate.repository.QuestionRepository;
 import com.code.cool.askmate.askmate.repository.UserRepository;
 import com.code.cool.askmate.askmate.service.LoginService;
+import com.code.cool.askmate.askmate.service.QuestionService;
+import com.oracle.jrockit.jfr.DataType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.ui.Model;
@@ -26,6 +28,15 @@ public class Controller {
     @Autowired
     private LoginService loginService;
 
+    @Autowired
+    private QuestionService questionService;
+
+    @ModelAttribute("question")
+    public Question getReservation() {
+        return new Question();
+    }
+
+
     @GetMapping("/")
     public String index(Model model) {
         if(!model.containsAttribute("userToLogin")){
@@ -41,8 +52,9 @@ public class Controller {
     }
 
     @PostMapping("/registration")
-    public String registrationForm(@ModelAttribute("newUser") User user) {
+    public String registrationForm(HttpSession session, @ModelAttribute("newUser") User user) {
         userRepository.save(user);
+        session.setAttribute("user", user);
         return "redirect:/";
     }
 
@@ -64,4 +76,16 @@ public class Controller {
         return "redirect:/";
     }
 
+    @GetMapping("/new_question")
+    public String newQuestionForm(Model model){
+        model.addAttribute("newQuestion", new Question());
+        return "new_question";
+    }
+
+    @PostMapping("/new_question")
+    public String addNewQuestion(@ModelAttribute("question") Question question,
+                                 @ModelAttribute("qButton") User actualUser){
+        questionService.createNewQuestion(actualUser, question);
+        return "redirect:/";
+    }
 }
