@@ -55,9 +55,12 @@
             <button class="btn btn-outline-success my-2 my-sm-0 float-right" type="submit">Login</button>
         </form>
     </div>
-    <div th:if="${session.user} != null">
-        <form action="#" th:action="@{/logout}" method="get" class="navbar-form navbar-right">
+    <div th:if="${session.user} != null" class="col-sm float-right">
+       <form action="#" th:action="@{/logout}" method="get" class="navbar-form navbar-right">
             <button class="btn btn-outline-success my-2 my-sm-0 float-right">Logout</button>
+        </form>
+        <form action="#" th:action="@{/new_question}" method="get" class="navbar-form navbar-right, form-inline">
+            <button class="btn btn-outline-success my-2 my-sm-0 float-right">Add new question</button>
         </form>
     </div>
     </div>
