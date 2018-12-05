@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Registration</title>
+
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script src="static/js/html5shiv.min.js" defer></script>
+    <script src="static/js/min.js" defer></script>
+    <script src="/static/js/jquery-1.11.3.min.js" defer></script>
+    <script src="/static/js/popper.min.js" defer></script>
+    <script src="/static/js/bootstrap.min.js" defer></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="tm-main-content">
+        <section class="tm-margin-b-l">
+            <h2 class="tm-main-title">Add new question</h2>
+
+            <p align="center">Please fill in this form to create a new question. If you don't want to create any,<a
+                    href="/">back to homepage</a>. </p>
+            <div class="jumbotron" align="center" style="margin-top: 40px; width:60%">
+                <form action="#" th:action="@{/new_question}" th:object="${question}" th:object="${user}" method="post" align="center">
+
+                    <div class="form-group">
+                        <label><b>Question title</b></label><br>
+                        <input type="text" th:field="*{question_title}" placeholder="Question title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label><b>Question description</b></label><br>
+                        <input type="text" th:field="*{question_description}" placeholder="Question description" name="description" required>
+                    </div>
+                    <button type="submit" id="add_button">Create</button>
+                    <input type="button" value="Cancel" onclick="window.location.href='../../webapp'"/>
+
+                    <input type="hidden" name="qButton" value="${user.id}">
+
+                    <!--
+                                        <input type="hidden" name="qButton" th:value="${question.setUser()}">
+                    -->
+<!--
+                    <input type="hidden" name="vote" th:value="${question.getVote_number()}">
+-->
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+</body>
+</html>
