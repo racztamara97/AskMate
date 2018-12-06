@@ -45,11 +45,13 @@
 
                     <div class="form-group">
                         <label><b>Question title</b></label><br>
-                        <input type="text" th:field="*{question_title}" placeholder="Question title" name="title" required>
+                        <input type="text" th:field="*{question_title}" placeholder="Question title" name="title"
+                               required>
                     </div>
                     <div class="form-group">
                         <label><b>Question description</b></label><br>
-                        <input type="text" th:field="*{question_description}" placeholder="Question description" name="description" required>
+                        <input type="text" th:field="*{question_description}" placeholder="Question description"
+                               name="description" required>
                     </div>
                     <button type="submit" id="add_button">Create</button>
                     <input type="button" value="Cancel" onclick="window.location.href='../../webapp'"/>
