@@ -38,7 +38,7 @@ public class Controller {
 
     @GetMapping("/")
     public String index(Model model) {
-        if(!model.containsAttribute("userToLogin")){
+        if (!model.containsAttribute("userToLogin")) {
             model.addAttribute("userToLogin", new User());
         }
         return "index";
@@ -58,8 +58,8 @@ public class Controller {
     }
 
     @PostMapping("/login")
-    public String loginForm(HttpSession session, @ModelAttribute("userToLogin") User user){
-        if(loginService.checkUserExists(user.getUsername(), user.getPassword())){
+    public String loginForm(HttpSession session, @ModelAttribute("userToLogin") User user) {
+        if (loginService.checkUserExists(user.getUsername(), user.getPassword())) {
             session.setAttribute("user", user);
             System.out.println(user);
 
@@ -70,19 +70,19 @@ public class Controller {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.removeAttribute("user");
         return "redirect:/";
     }
 
     @GetMapping("/new_question")
-    public String newQuestionForm(Model model){
+    public String newQuestionForm(Model model) {
         model.addAttribute("newQuestion", new Question());
         return "new_question";
     }
 
     @PostMapping("/new_question")
-    public String addNewQuestion(HttpSession session, @ModelAttribute("question") Question question){
+    public String addNewQuestion(HttpSession session, @ModelAttribute("question") Question question) {
         User user = (User) session.getAttribute("user");
         questionService.createNewQuestion(user, question);
         return "redirect:/";
