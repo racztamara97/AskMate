@@ -6,7 +6,6 @@ import com.code.cool.askmate.askmate.repository.QuestionRepository;
 import com.code.cool.askmate.askmate.repository.UserRepository;
 import com.code.cool.askmate.askmate.service.LoginService;
 import com.code.cool.askmate.askmate.service.QuestionService;
-import com.oracle.jrockit.jfr.DataType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.ui.Model;
@@ -83,9 +82,9 @@ public class Controller {
     }
 
     @PostMapping("/new_question")
-    public String addNewQuestion(@ModelAttribute("question") Question question,
-                                 @ModelAttribute("qButton") User actualUser){
-        questionService.createNewQuestion(actualUser, question);
+    public String addNewQuestion(HttpSession session, @ModelAttribute("question") Question question){
+        User user = (User) session.getAttribute("user");
+        questionService.createNewQuestion(user, question);
         return "redirect:/";
     }
 }
