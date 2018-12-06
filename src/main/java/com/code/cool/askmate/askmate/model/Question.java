@@ -8,10 +8,21 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long id;
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
     private String question_title;
     private String question_description;
     private int vote_number = 0;
+
+    public Question() {
+    }
+
+    public Question(User user, String question_title, String question_description, int vote_number) {
+        this.user = user;
+        this.question_title = question_title;
+        this.question_description = question_description;
+        this.vote_number = vote_number;
+    }
 
     public long getId() {
         return id;
