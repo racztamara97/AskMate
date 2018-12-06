@@ -41,6 +41,7 @@ public class Controller {
         if (!model.containsAttribute("userToLogin")) {
             model.addAttribute("userToLogin", new User());
         }
+        model.addAttribute("questions", questionRepository.findAll());
         return "index";
     }
 
