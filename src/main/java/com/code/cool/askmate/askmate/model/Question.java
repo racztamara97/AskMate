@@ -31,6 +31,7 @@ public class Question {
     public void setId(long id) {
         this.id = id;
     }
+
     public User getUser() {
         return user;
     }
@@ -63,14 +64,14 @@ public class Question {
         this.vote_number = vote_number;
     }
 
-   @Override
-    public String toString(){
-       return "Question{" +
-               "id=" + id +
-               ", user=" + user +
-               ", question_title=" + question_title +
-               ", question1_description=" + question_description +
-               ", vote_number=" + vote_number +
-               '}';
-   }
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", user=" + user +
+                ", question_title=" + question_title +
+                ", question1_description=" + question_description +
+                ", vote_number=" + vote_number +
+                '}';
+    }
 }
