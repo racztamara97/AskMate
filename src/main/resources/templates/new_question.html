@@ -41,7 +41,7 @@
             <p align="center">Please fill in this form to create a new question. If you don't want to create any,<a
                     href="/">back to homepage</a>. </p>
             <div class="jumbotron" align="center" style="margin-top: 40px; width:60%">
-                <form action="#" th:action="@{/new_question}" th:object="${question}" th:object="${user}" method="post" align="center">
+                <form action="#" th:action="@{/new_question}" th:object="${question}" method="post" align="center">
 
                     <div class="form-group">
                         <label><b>Question title</b></label><br>
@@ -53,15 +53,6 @@
                     </div>
                     <button type="submit" id="add_button">Create</button>
                     <input type="button" value="Cancel" onclick="window.location.href='../../webapp'"/>
-
-                    <input type="hidden" name="qButton" value="${user.id}">
-
-                    <!--
-                                        <input type="hidden" name="qButton" th:value="${question.setUser()}">
-                    -->
-<!--
-                    <input type="hidden" name="vote" th:value="${question.getVote_number()}">
--->
                 </form>
             </div>
         </section>
