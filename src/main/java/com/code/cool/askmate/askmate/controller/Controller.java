@@ -31,10 +31,9 @@ public class Controller {
     private QuestionService questionService;
 
     @ModelAttribute("question")
-    public Question getReservation() {
+    public Question createQuestion() {
         return new Question();
     }
-
 
     @GetMapping("/")
     public String index(Model model) {
@@ -88,4 +87,12 @@ public class Controller {
         questionService.createNewQuestion(user, question);
         return "redirect:/";
     }
+
+
+    @GetMapping("/question")
+    public String getQuestion(Model model, @RequestParam(value = "questionButton") long id){
+        model.addAttribute("actualQuestion", questionRepository.getQuestionById(id));
+        return "question";
+    }
+
 }
