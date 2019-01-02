@@ -10,4 +10,10 @@ public interface QuestionRepository extends JpaRepository<Question, String> {
 
     @Override
     List<Question> findAll();
+
+    Question getQuestionById(long id);
+
+/*
+    Question getQuestionById(long id);
+*/
 }
