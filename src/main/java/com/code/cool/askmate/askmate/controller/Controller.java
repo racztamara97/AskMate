@@ -90,7 +90,7 @@ public class Controller {
 
 
     @GetMapping("/question")
-    public String getQuestion(Model model, @RequestParam(value = "questionButton") long id){
+    public String getQuestion(Model model, @RequestParam(value = "questionButton") long id) {
         model.addAttribute("actualQuestion", questionRepository.getQuestionById(id));
         return "question";
     }
