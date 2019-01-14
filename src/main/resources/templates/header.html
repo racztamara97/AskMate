@@ -26,21 +26,15 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <button class="btn btn-outline-success my-2 my-sm-0"><a href="#" class="dropdown-toggle"
-                                                                            data-toggle="dropdown" role="button"
-                                                                            aria-haspopup="true"
-                                                                            aria-expanded="false"><font color="FFFFFF">Sort </font></a>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sort
                     </button>
-
-                    <ul class="dropdown-menu">
-
-                        <li><a href="#" th:href="@{#}">Question name ASC</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#" th:href="@{#}">Question name DESC</a></li>
-
-                    </ul>
-                </li>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" action="#" th:action="@{/title_ASC}" method='POST'>By title ASC</a>
+                        <a class="dropdown-item" href="#" action="#" th:action="@{/title_DESC}" method='POST'>By title DESC</a>
+                    </div>
+                </div>
             </ul>
             <form class="form-inline">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
