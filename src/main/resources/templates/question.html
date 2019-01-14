@@ -24,8 +24,8 @@
     <div class="row list-group">
         <div class="item col-xs-12">
             <div class="thumbnail" th:object="${actualQuestion}">
+                <h1 th:text="${actualQuestion.question_title}">question title</h1>
                 <div class="caption">
-                    <p th:text="${actualQuestion.question_title}">question title</p>
                     <p th:text="${actualQuestion.question_description}">question description</p>
                     <p th:text="${actualQuestion.user.getName()}">questioner</p>
                     <p th:text="${actualQuestion.vote_number}">vote</p>
