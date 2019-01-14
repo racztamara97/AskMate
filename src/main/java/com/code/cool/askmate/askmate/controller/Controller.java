@@ -40,6 +40,12 @@ public class Controller {
         if (!model.containsAttribute("userToLogin")) {
             model.addAttribute("userToLogin", new User());
         }
+       /* if (model.containsAttribute("orderedQuestionsAsc")) {
+            model.addAttribute("questions", questionRepository.findAllByOrderByQuestion_titleAsc());
+        }*//*
+        else if (model.containsAttribute("orderedQuestionsDesc")){
+            model.addAttribute("questions", questionRepository.findAllOrderByTitleDesc());
+        }*/
         model.addAttribute("questions", questionRepository.findAll());
         return "index";
     }
@@ -94,5 +100,18 @@ public class Controller {
         model.addAttribute("actualQuestion", questionRepository.getQuestionById(id));
         return "question";
     }
+
+    @PostMapping("/title_ASC")
+    public String getQuestionsOrderedByTitleAsc(Model model) {
+        model.addAttribute("orderedQuestionsAsc");
+        return "index";
+    }
+
+    @PostMapping("/title_DESC")
+    public String getQuestionsOrderedByTitleDesc(Model model) {
+        model.addAttribute("orderedQuestionDesc");
+        return "index";
+    }
+
 
 }
