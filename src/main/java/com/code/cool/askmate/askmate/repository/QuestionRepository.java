@@ -13,7 +13,7 @@ public interface QuestionRepository extends JpaRepository<Question, String> {
 
     Question getQuestionById(long id);
 
-/*
-    Question getQuestionById(long id);
-*/
+   // List<Question> findAllByOrderByQuestion_titleAsc();
+
+   // List<Question> findAllOrderByTitleDesc();
 }
