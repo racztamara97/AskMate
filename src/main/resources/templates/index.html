@@ -35,11 +35,12 @@
                 <div class="thumbnail" th:each="question: ${questions}">
                     <tr>
                         <td>
-                             <form action="#" th:action="@{/question}" th:object="${question}" method="get">
-                                 <button th:text="${question.question_title}" class="btn btn-link">question title</button>
-                                 <input type="hidden" name="questionButton" th:value="${question.id}">
-                             </form>
-                         </td>
+                            <form action="#" th:action="@{/question}" th:object="${question}" method="get">
+                                <button th:text="${question.question_title}" class="btn btn-link">question title
+                                </button>
+                                <input type="hidden" name="questionButton" th:value="${question.id}">
+                            </form>
+                        </td>
                         <td th:text="${question.user.getUsername()}">questioner</td>
                         <td th:text="${question.vote_number}">vote</td>
                     </tr>
