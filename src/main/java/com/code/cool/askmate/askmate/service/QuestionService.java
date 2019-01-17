@@ -20,8 +20,8 @@ public class QuestionService {
 
         Question newQuestion = new Question();
         newQuestion.setUser(myUser);
-        newQuestion.setQuestion_title(question.getQuestion_title());
-        newQuestion.setQuestion_description(question.getQuestion_description());
+        newQuestion.setQuestionTitle(question.getQuestionTitle());
+        newQuestion.setQuestionDescription(question.getQuestionDescription());
         newQuestion.setVote_number(question.getVote_number());
         questionRepository.save(newQuestion);
     }
