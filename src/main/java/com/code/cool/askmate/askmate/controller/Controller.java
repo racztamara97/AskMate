@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 @org.springframework.stereotype.Controller
 @Scope("session")
-@SessionAttributes({"userToLogin", "question"})
+@SessionAttributes({"userToLogin", "question", "searchForThis"})
 public class Controller {
 
     @Autowired
@@ -36,7 +36,7 @@ public class Controller {
     }
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, HttpSession session) {
         if (!model.containsAttribute("userToLogin")) {
             model.addAttribute("userToLogin", new User());
         }
@@ -110,6 +110,12 @@ public class Controller {
     @PostMapping("/title_DESC")
     public String getQuestionsOrderedByTitleDesc(Model model) {
         model.addAttribute("orderedQuestionDesc");
+        return "index";
+    }
+
+    @PostMapping("/search")
+    public String search(@RequestParam(value = "search") String search, Model model){
+        model.addAttribute("questions", questionRepository.findAllByQuestionTitleContaining(search));
         return "index";
     }
 
