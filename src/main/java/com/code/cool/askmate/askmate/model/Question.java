@@ -10,17 +10,17 @@ public class Question {
     public long id;
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-    private String question_title;
-    private String question_description;
+    private String questionTitle;
+    private String questionDescription;
     private int vote_number = 0;
 
     public Question() {
     }
 
-    public Question(User user, String question_title, String question_description, int vote_number) {
+    public Question(User user, String questionTitle, String questionDescription, int vote_number) {
         this.user = user;
-        this.question_title = question_title;
-        this.question_description = question_description;
+        this.questionTitle = questionTitle;
+        this.questionDescription = questionDescription;
         this.vote_number = vote_number;
     }
 
@@ -40,20 +40,20 @@ public class Question {
         this.user = user;
     }
 
-    public String getQuestion_title() {
-        return question_title;
+    public String getQuestionTitle() {
+        return questionTitle;
     }
 
-    public void setQuestion_title(String question_title) {
-        this.question_title = question_title;
+    public void setQuestionTitle(String questionTitle) {
+        this.questionTitle = questionTitle;
     }
 
-    public String getQuestion_description() {
-        return question_description;
+    public String getQuestionDescription() {
+        return questionDescription;
     }
 
-    public void setQuestion_description(String question_description) {
-        this.question_description = question_description;
+    public void setQuestionDescription(String questionDescription) {
+        this.questionDescription = questionDescription;
     }
 
     public int getVote_number() {
@@ -69,8 +69,8 @@ public class Question {
         return "Question{" +
                 "id=" + id +
                 ", user=" + user +
-                ", question_title=" + question_title +
-                ", question1_description=" + question_description +
+                ", questionTitle=" + questionTitle +
+                ", question1_description=" + questionDescription +
                 ", vote_number=" + vote_number +
                 '}';
     }
