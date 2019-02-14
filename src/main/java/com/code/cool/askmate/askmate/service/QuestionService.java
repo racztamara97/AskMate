@@ -22,7 +22,7 @@ public class QuestionService {
         newQuestion.setUser(myUser);
         newQuestion.setQuestionTitle(question.getQuestionTitle());
         newQuestion.setQuestionDescription(question.getQuestionDescription());
-        newQuestion.setVote_number(question.getVote_number());
+        newQuestion.setVoteNumber(question.getVoteNumber());
         questionRepository.save(newQuestion);
     }
 }
