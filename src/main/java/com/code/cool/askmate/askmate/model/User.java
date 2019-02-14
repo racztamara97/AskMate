@@ -1,6 +1,8 @@
 package com.code.cool.askmate.askmate.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "Users")
 public class User {
@@ -11,7 +13,8 @@ public class User {
     private String name;
     private String username;
     private String password;
-
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Question> questions = new ArrayList<>();
 
     public User() {
     }
@@ -52,6 +55,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 
     @Override
