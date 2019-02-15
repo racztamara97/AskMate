@@ -7,12 +7,12 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long id;
+    private long id;
     @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private User user;
     private String questionTitle;
     private String questionDescription;
-    private int vote_number = 0;
+    private int voteNumber = 0;
 
     public Question() {
     }
@@ -21,7 +21,7 @@ public class Question {
         this.user = user;
         this.questionTitle = questionTitle;
         this.questionDescription = questionDescription;
-        this.vote_number = vote_number;
+        this.voteNumber = vote_number;
     }
 
     public long getId() {
@@ -56,12 +56,12 @@ public class Question {
         this.questionDescription = questionDescription;
     }
 
-    public int getVote_number() {
-        return vote_number;
+    public int getVoteNumber() {
+        return voteNumber;
     }
 
-    public void setVote_number(int vote_number) {
-        this.vote_number = vote_number;
+    public void setVoteNumber(int voteNumber) {
+        this.voteNumber = voteNumber;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class Question {
                 ", user=" + user +
                 ", questionTitle=" + questionTitle +
                 ", question1_description=" + questionDescription +
-                ", vote_number=" + vote_number +
+                ", voteNumber=" + voteNumber +
                 '}';
     }
 }
