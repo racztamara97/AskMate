@@ -6,6 +6,7 @@ import com.code.cool.askmate.askmate.repository.QuestionRepository;
 import com.code.cool.askmate.askmate.repository.UserRepository;
 import com.code.cool.askmate.askmate.service.LoginService;
 import com.code.cool.askmate.askmate.service.QuestionService;
+import com.code.cool.askmate.askmate.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.ui.Model;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 @org.springframework.stereotype.Controller
 @Scope("session")
-@SessionAttributes({"userToLogin", "question", "searchForThis"})
+@SessionAttributes({"userToLogin", "question", "searchForThis", "actualQuestion"})
 public class Controller {
 
     @Autowired
@@ -30,6 +31,9 @@ public class Controller {
     @Autowired
     private QuestionService questionService;
 
+    @Autowired
+    private VoteService voteService;
+
     @ModelAttribute("question")
     public Question createQuestion() {
         return new Question();
@@ -41,7 +45,7 @@ public class Controller {
             model.addAttribute("userToLogin", new User());
         }
        /* if (model.containsAttribute("orderedQuestionsAsc")) {
-            model.addAttribute("questions", questionRepository.findAllByOrderByQuestion_titleAsc());
+            model.addAttribute("questions", questionRepository.findAllByOrderByQuestionTitleAsc());
         }*//*
         else if (model.containsAttribute("orderedQuestionsDesc")){
             model.addAttribute("questions", questionRepository.findAllOrderByTitleDesc());
@@ -89,21 +93,26 @@ public class Controller {
 
     @PostMapping("/new_question")
     public String addNewQuestion(HttpSession session, @ModelAttribute("question") Question question) {
-        User user = (User) session.getAttribute("user");
-        questionService.createNewQuestion(user, question);
+        User userInSession = (User) session.getAttribute("user");
+        String username = userInSession.getUsername();
+        User realUser = userRepository.getUserByUsername(username);
+        questionService.createNewQuestion(realUser, question);
         return "redirect:/";
     }
 
 
     @GetMapping("/question")
-    public String getQuestion(Model model, @RequestParam(value = "questionButton") long id) {
+    public String getQuestion(HttpSession session, Model model, @RequestParam(value = "questionButton") long id) {
         model.addAttribute("actualQuestion", questionRepository.getQuestionById(id));
+        session.setAttribute("actualQuestion", questionRepository.getQuestionById(id));
         return "question";
     }
 
     @PostMapping("/title_ASC")
     public String getQuestionsOrderedByTitleAsc(Model model) {
-        model.addAttribute("orderedQuestionsAsc");
+        model.addAttribute("questions", questionRepository.findAllByOrderByQuestionTitleAsc());
+        System.out.println(questionRepository.findAllByOrderByQuestionTitleAsc());
+        // model.addAttribute("orderedQuestionAsc");
         return "index";
     }
 
@@ -114,9 +123,26 @@ public class Controller {
     }
 
     @PostMapping("/search")
-    public String search(@RequestParam(value = "search") String search, Model model){
+    public String search(@RequestParam(value = "search") String search, Model model) {
         model.addAttribute("questions", questionRepository.findAllByQuestionTitleContaining(search));
         return "index";
+    }
+
+    @PostMapping("/vote_up")
+    public String voteUp(HttpSession session) {
+        Question actualQuestion = (Question) session.getAttribute("actualQuestion");
+        User userInSession = (User) session.getAttribute("user");
+        String usernameInSession = userInSession.getUsername();
+        User realUser = userRepository.getUserByUsername(usernameInSession);
+        long userId = realUser.getId();
+        long questionId = actualQuestion.getId();
+        voteService.checkVoteExsits(userId, questionId);
+        return "redirect:/";
+    }
+
+    @PostMapping("/vote_down")
+    public String voteDown(){
+        return "question";
     }
 
 
