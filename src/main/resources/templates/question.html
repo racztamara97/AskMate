@@ -27,9 +27,19 @@
                 <h1 th:text="${actualQuestion.questionTitle}">question title</h1>
                 <div class="caption">
                     <p th:text="${actualQuestion.questionDescription}">question description</p>
-                    <p th:text="${actualQuestion.user.getName()}">questioner</p>
-                    <p th:text="${actualQuestion.vote_number}">vote</p>
-                </div>
+                    <p th:text="${actualQuestion.user.getUsername()}">questioner</p>
+                    <p th:text="${actualQuestion.voteNumber}">vote</p>
+                    <div th:if="${session.user} != null" class="col-sm float-right">
+                        <form action="#" th:action="@{/vote_up}" method="post" align="left">
+                            <button type="submit" class="btn btn-success">Vote up</button>
+                            <input type="hidden" name="questionButton" th:value="${actualQuestion.id}">
+                        </form>
+                        <form action="#" th:action="@{/vote_down}" method="post" align="left">
+                            <button type="submit" class="btn btn-danger">Vote down</button>
+                            <input type="hidden" name="questionButton" th:value="${actualQuestion.id}">
+                        </form>
+                    </div>
+                    </div>
             </div>
         </div>
     </div>
