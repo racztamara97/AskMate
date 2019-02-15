@@ -14,6 +14,9 @@ public class Vote {
     private long userId;
     private long questionId;
 
+    public Vote() {
+    }
+
     public Vote(long userId, long questionId) {
         this.userId = userId;
         this.questionId = questionId;
