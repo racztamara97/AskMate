@@ -71,8 +71,6 @@ public class Controller {
     public String loginForm(HttpSession session, @ModelAttribute("userToLogin") User user) {
         if (loginService.checkUserExists(user.getUsername(), user.getPassword())) {
             session.setAttribute("user", user);
-            System.out.println(user);
-
             return "redirect:/";
         } else {
             return "redirect:/registration";
