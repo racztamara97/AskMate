@@ -30,18 +30,18 @@ public class VoteService {
 
     public boolean checkVoteExsits(long userId, long questionId) {
         List<Vote> votesOfThisUser = voteRepository.findVotesByUserId(userId);
-        if (votesOfThisUser!= null) {
+        if (votesOfThisUser != null) {
             for (Vote actual : votesOfThisUser) {
                 if (actual.getQuestionId() == questionId) {
                     return true;
                 }
             }
-            createNewVote(userId, questionId);
-            voteUp(questionId);
+            //createNewVote(userId, questionId);
+            //voteUp(questionId);
             return false;
         }
-        createNewVote(userId, questionId);
-        voteUp(questionId);
+        //createNewVote(userId, questionId);
+        //voteUp(questionId);
         return false;
     }
 
@@ -50,5 +50,14 @@ public class VoteService {
         int voteBefore = actual.getVoteNumber();
         actual.setVoteNumber(voteBefore + 1);
         questionRepository.save(actual);
+    }
+
+    public void voteDown(long questionId) {
+        Question actual = questionRepository.getQuestionById(questionId);
+        int voteBefore = actual.getVoteNumber();
+        if (voteBefore != 0) {
+            actual.setVoteNumber(voteBefore - 1);
+            questionRepository.save(actual);
+        }
     }
 }
