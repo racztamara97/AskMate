@@ -125,6 +125,7 @@ public class Controller {
         model.addAttribute("questions", questionRepository.findAllByQuestionTitleContaining(search));
         return "index";
     }
+/*
 
     @PostMapping("/vote_up")
     public String voteUp(HttpSession session) {
@@ -134,13 +135,46 @@ public class Controller {
         User realUser = userRepository.getUserByUsername(usernameInSession);
         long userId = realUser.getId();
         long questionId = actualQuestion.getId();
-        voteService.checkVoteExsits(userId, questionId);
+        if(!voteService.checkVoteExsits(userId, questionId)) {
+            voteService.createNewVote(userId, questionId);
+            voteService.voteUp(questionId);
+        }
+
         return "redirect:/";
     }
 
     @PostMapping("/vote_down")
-    public String voteDown(){
-        return "question";
+    public String voteDown(HttpSession session){
+        Question actualQuestion = (Question) session.getAttribute("actualQuestion");
+        User userInSession = (User) session.getAttribute("user");
+        String usernameInSession = userInSession.getUsername();
+        User realUser = userRepository.getUserByUsername(usernameInSession);
+        long userId = realUser.getId();
+        long questionId = actualQuestion.getId();
+        if(!voteService.checkVoteExsits(userId, questionId)) {
+            voteService.createNewVote(userId, questionId);
+            voteService.voteDown(questionId);
+        }        return "redirect:/";
+    }
+*/
+
+    @PostMapping("/vote")
+    public String vote(HttpSession session, @RequestParam("voteType") String vote) {
+        Question actualQuestion = (Question) session.getAttribute("actualQuestion");
+        User userInSession = (User) session.getAttribute("user");
+        String usernameInSession = userInSession.getUsername();
+        User realUser = userRepository.getUserByUsername(usernameInSession);
+        long userId = realUser.getId();
+        long questionId = actualQuestion.getId();
+        if (!voteService.checkVoteExsits(userId, questionId)) {
+            voteService.createNewVote(userId, questionId);
+            if (vote.equals("up")) {
+                voteService.voteUp(questionId);
+            } else {
+                voteService.voteDown(questionId);
+            }
+        }
+        return "redirect:/";
     }
 
 
