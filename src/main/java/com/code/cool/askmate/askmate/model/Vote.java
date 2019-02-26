@@ -1,5 +1,7 @@
 package com.code.cool.askmate.askmate.model;
 
+import com.code.cool.askmate.askmate.VoteType;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,13 +15,15 @@ public class Vote {
     private long id;
     private long userId;
     private long questionId;
+    private VoteType type;
 
     public Vote() {
     }
 
-    public Vote(long userId, long questionId) {
+    public Vote(long userId, long questionId, VoteType type) {
         this.userId = userId;
         this.questionId = questionId;
+        this.type = type;
     }
 
     public long getId() {
@@ -44,5 +48,13 @@ public class Vote {
 
     public void setQuestionId(long questionId) {
         this.questionId = questionId;
+    }
+
+    public VoteType getType() {
+        return type;
+    }
+
+    public void setType(VoteType type) {
+        this.type = type;
     }
 }
