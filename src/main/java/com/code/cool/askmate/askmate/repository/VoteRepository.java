@@ -9,5 +9,5 @@ public interface VoteRepository extends JpaRepository<Vote, String> {
 
     public List<Vote> findVotesByUserId(long userId);
 
-    public Vote findVoteById(long id);
+    public Vote findVoteByUserIdAndQuestionId(long userId, long questionId);
 }
