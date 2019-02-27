@@ -13,12 +13,15 @@ public interface QuestionRepository extends JpaRepository<Question, String> {
 
     Question getQuestionById(long id);
 
-   // Question findByQuestionTitle(String questionTitle);
-
     List<Question> findAllByQuestionTitleContaining(String search);
-    // List<Question> findAllByOrderByQuestion_titleAsc();
 
-    // List<Question> findAllOrderByTitleDesc();
+    List<Question> findAllByOrderByQuestionTitleAsc();
 
-    //List<Question> findAllByQuestion_titleOrQuestion_descriptionIsContainingSearch(String search);
+    List<Question> findAllByOrderByQuestionTitleDesc();
+
+    //List<Question> findAllByQuestionTitleOrQuestionDescriptionContaining(String search);
+
+    List<Question> findAllByOrderByVoteNumberAsc();
+
+    List<Question> findAllByOrderByVoteNumberDesc();
 }
