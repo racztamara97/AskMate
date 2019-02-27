@@ -32,15 +32,26 @@
                         Sort
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#" action="#" th:action="@{/title_ASC}" method='POST'>By title
-                            ASC</a>
-                        <a class="dropdown-item" href="#" action="#" th:action="@{/title_DESC}" method='POST'>By title
-                            DESC</a>
+                        <form action="#" th:action="@{/title_ASC}" method="post">
+                            <button class="btn btn-link"><font color="black">By title ASC</font></button>
+                        </form>
+                        <form action="#" th:action="@{/title_DESC}" method="post">
+                            <button class="btn btn-link"><font color="black">By title DESC</font></button>
+                        </form>
+                        <form action="#" th:action="@{/vote_ASC}" method="post">
+                            <button class="btn btn-link"><font color="black">By vote ASC</font></button>
+                        </form>
+                        <form action="#" th:action="@{/vote_DESC}" method="post">
+                            <button class="btn btn-link"><font color="black">By vote DESC</font></button>
+                        </form>
+
                     </div>
                 </div>
             </ul>
-            <form class="form-inline" href="#" action="#" th:action="@{/search}" th:object="${searchForThis}" method="post">
-                <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
+            <form class="form-inline" href="#" action="#" th:action="@{/search}" th:object="${searchForThis}"
+                  method="post">
+                <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search"
+                       aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
             <div th:if="${session.user} == null" class="col-sm float-right">
