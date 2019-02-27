@@ -136,16 +136,27 @@ public class Controller {
         long userId = realUser.getId();
         long questionId = actualQuestion.getId();
         if (vote.equals("up")) {
-            if (!voteService.checkVoteExsits(questionId, userId, VoteType.UP)) {
+            if (!voteService.checkVoteExists(questionId, userId, VoteType.UP)) {
                 voteService.voteUp(questionId, userId);
             }
         } else {
-            if (!voteService.checkVoteExsits(questionId, userId, VoteType.DOWN)) {
+            if (!voteService.checkVoteExists(questionId, userId, VoteType.DOWN)) {
                 voteService.voteDown(questionId, userId);
             }
         }
         return "redirect:/";
     }
 
+    @PostMapping("/vote_ASC")
+    public String voteAsc(Model model){
+        model.addAttribute("questions", questionRepository.findAllByOrderByVoteNumberAsc());
+        return "index";
+    }
+
+    @PostMapping("/vote_DESC")
+    public String voteDesc(Model model){
+        model.addAttribute("questions", questionRepository.findAllByOrderByVoteNumberDesc());
+        return "index";
+    }
 
 }
