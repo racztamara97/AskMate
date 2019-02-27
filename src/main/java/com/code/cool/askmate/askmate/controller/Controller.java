@@ -41,16 +41,10 @@ public class Controller {
     }
 
     @GetMapping("/")
-    public String index(Model model, HttpSession session) {
+    public String index(Model model) {
         if (!model.containsAttribute("userToLogin")) {
             model.addAttribute("userToLogin", new User());
         }
-       /* if (model.containsAttribute("orderedQuestionsAsc")) {
-            model.addAttribute("questions", questionRepository.findAllByOrderByQuestionTitleAsc());
-        }*//*
-        else if (model.containsAttribute("orderedQuestionsDesc")){
-            model.addAttribute("questions", questionRepository.findAllOrderByTitleDesc());
-        }*/
         model.addAttribute("questions", questionRepository.findAll());
         return "index";
     }
@@ -110,14 +104,12 @@ public class Controller {
     @PostMapping("/title_ASC")
     public String getQuestionsOrderedByTitleAsc(Model model) {
         model.addAttribute("questions", questionRepository.findAllByOrderByQuestionTitleAsc());
-        System.out.println(questionRepository.findAllByOrderByQuestionTitleAsc());
-        // model.addAttribute("orderedQuestionAsc");
         return "index";
     }
 
     @PostMapping("/title_DESC")
     public String getQuestionsOrderedByTitleDesc(Model model) {
-        model.addAttribute("orderedQuestionDesc");
+        model.addAttribute("questions", questionRepository.findAllByOrderByQuestionTitleDesc());
         return "index";
     }
 
