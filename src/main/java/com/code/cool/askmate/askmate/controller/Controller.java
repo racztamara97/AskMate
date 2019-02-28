@@ -1,10 +1,13 @@
 package com.code.cool.askmate.askmate.controller;
 
 import com.code.cool.askmate.askmate.VoteType;
+import com.code.cool.askmate.askmate.model.Comment;
 import com.code.cool.askmate.askmate.model.Question;
 import com.code.cool.askmate.askmate.model.User;
+import com.code.cool.askmate.askmate.repository.CommentRepository;
 import com.code.cool.askmate.askmate.repository.QuestionRepository;
 import com.code.cool.askmate.askmate.repository.UserRepository;
+import com.code.cool.askmate.askmate.service.CommentService;
 import com.code.cool.askmate.askmate.service.LoginService;
 import com.code.cool.askmate.askmate.service.QuestionService;
 import com.code.cool.askmate.askmate.service.VoteService;
@@ -34,6 +37,13 @@ public class Controller {
 
     @Autowired
     private VoteService voteService;
+
+    @Autowired
+    private CommentRepository commentRepository;
+
+    @Autowired
+    private CommentService commentService;
+
 
     @ModelAttribute("question")
     public Question createQuestion() {
@@ -98,6 +108,7 @@ public class Controller {
     public String getQuestion(HttpSession session, Model model, @RequestParam(value = "questionButton") long id) {
         model.addAttribute("actualQuestion", questionRepository.getQuestionById(id));
         session.setAttribute("actualQuestion", questionRepository.getQuestionById(id));
+        model.addAttribute("comments", commentRepository.findAllByQuestionId(id));
         return "question";
     }
 
@@ -149,6 +160,24 @@ public class Controller {
     public String voteDesc(Model model){
         model.addAttribute("questions", questionRepository.findAllByOrderByVoteNumberDesc());
         return "index";
+    }
+
+    @GetMapping("/add_comment")
+    public String addComment(Model model){
+        model.addAttribute("newComment", new Comment());
+        return "new_comment";
+    }
+
+    @PostMapping("/add_comment")
+    public String addCommentForm(HttpSession session, @ModelAttribute("newComment") Comment comment){
+        User userInSession = (User) session.getAttribute("user");
+        String usernameInSession = userInSession.getUsername();
+        User realUser = userRepository.getUserByUsername(usernameInSession);
+        long userId = realUser.getId();
+        Question actualQuestion = (Question) session.getAttribute("actualQuestion");
+        long questionId = actualQuestion.getId();
+        commentService.createNewComment(userId, questionId, comment);
+        return "redirect:/";
     }
 
 }
