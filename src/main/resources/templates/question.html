@@ -30,14 +30,6 @@
                     <p th:text="${actualQuestion.user.getUsername()}">questioner</p>
                     <p th:text="${actualQuestion.voteNumber}">vote</p>
                     <div th:if="${session.user} != null" class="col-sm float-right">
-                        <!--<form action="#" th:action="@{/vote_up}" method="post" align="left">
-                            <button type="submit" class="btn btn-success">Vote up</button>
-                            <input type="hidden" name="questionButton" th:value="${actualQuestion.id}">
-                        </form>
-                        <form action="#" th:action="@{/vote_down}" method="post" align="left">
-                            <button type="submit" class="btn btn-danger">Vote down</button>
-                            <input type="hidden" name="questionButton" th:value="${actualQuestion.id}">
-                        </form>-->
                         <form action="#" th:action="@{/vote}" method="post" align="left">
                             <button type="submit" class="btn btn-success">Vote up</button>
                             <input type="hidden" name="voteType" th:value="up">
@@ -46,6 +38,20 @@
                             <button type="submit" class="btn btn-danger">Vote down</button>
                             <input type="hidden" name="voteType" th:value="down">
                         </form>
+                        <form action="#" th:action="@{/add_comment}" method="get" align="left">
+                            <button type="submit" class="btn btn-primary">Comment</button>
+                        </form>
+
+                    </div>
+                    <h1>Comments: </h1>
+                    <div class="thumbnail" th:each="comment: ${comments}">
+<!--
+                        <pre th:text="${comment.commentText}">text</pre>
+-->
+<!--
+                        <p th:text="${comment.commentText}">Text</p>
+-->
+                        <pre><span th:text="${comment.commentText}">text</span></pre>
                     </div>
                     </div>
             </div>
