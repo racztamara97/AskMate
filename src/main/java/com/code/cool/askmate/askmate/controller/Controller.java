@@ -50,6 +50,12 @@ public class Controller {
         return new Question();
     }
 
+    public User getUserFromSession(HttpSession session){
+        User userInSession = (User) session.getAttribute("user");
+        String usernameInSession = userInSession.getUsername();
+        return userRepository.getUserByUsername(usernameInSession);
+    }
+
     @GetMapping("/")
     public String index(Model model) {
         if (!model.containsAttribute("userToLogin")) {
@@ -112,17 +118,7 @@ public class Controller {
         return "question";
     }
 
-    @PostMapping("/title_ASC")
-    public String getQuestionsOrderedByTitleAsc(Model model) {
-        model.addAttribute("questions", questionRepository.findAllByOrderByQuestionTitleAsc());
-        return "index";
-    }
 
-    @PostMapping("/title_DESC")
-    public String getQuestionsOrderedByTitleDesc(Model model) {
-        model.addAttribute("questions", questionRepository.findAllByOrderByQuestionTitleDesc());
-        return "index";
-    }
 
     @PostMapping("/search")
     public String search(@RequestParam(value = "search") String search, Model model) {
@@ -130,12 +126,12 @@ public class Controller {
         return "index";
     }
 
+
+
     @PostMapping("/vote")
     public String vote(HttpSession session, @RequestParam("voteType") String vote) {
         Question actualQuestion = (Question) session.getAttribute("actualQuestion");
-        User userInSession = (User) session.getAttribute("user");
-        String usernameInSession = userInSession.getUsername();
-        User realUser = userRepository.getUserByUsername(usernameInSession);
+        User realUser = getUserFromSession(session);
         long userId = realUser.getId();
         long questionId = actualQuestion.getId();
         if (vote.equals("up")) {
@@ -150,6 +146,35 @@ public class Controller {
         return "redirect:/";
     }
 
+    @PostMapping("/sort")
+    public String sort(Model model, @RequestParam("sortType") String sort){
+        if (sort.equals("titleAsc")){
+            model.addAttribute("questions", questionRepository.findAllByOrderByQuestionTitleAsc());
+        }
+        if (sort.equals("titleDesc")){
+            model.addAttribute("questions", questionRepository.findAllByOrderByQuestionTitleDesc());
+        }
+        if (sort.equals("voteAsc")){
+            model.addAttribute("questions", questionRepository.findAllByOrderByVoteNumberAsc());
+        }
+        if (sort.equals("voteDesc")) {
+            model.addAttribute("questions", questionRepository.findAllByOrderByVoteNumberDesc());
+        }
+        return "index";
+    }
+
+/*    @PostMapping("/title_ASC")
+    public String getQuestionsOrderedByTitleAsc(Model model) {
+        model.addAttribute("questions", questionRepository.findAllByOrderByQuestionTitleAsc());
+        return "index";
+    }
+
+    @PostMapping("/title_DESC")
+    public String getQuestionsOrderedByTitleDesc(Model model) {
+        model.addAttribute("questions", questionRepository.findAllByOrderByQuestionTitleDesc());
+        return "index";
+    }
+
     @PostMapping("/vote_ASC")
     public String voteAsc(Model model){
         model.addAttribute("questions", questionRepository.findAllByOrderByVoteNumberAsc());
@@ -160,7 +185,7 @@ public class Controller {
     public String voteDesc(Model model){
         model.addAttribute("questions", questionRepository.findAllByOrderByVoteNumberDesc());
         return "index";
-    }
+    }*/
 
     @GetMapping("/add_comment")
     public String addComment(Model model){
@@ -170,9 +195,7 @@ public class Controller {
 
     @PostMapping("/add_comment")
     public String addCommentForm(HttpSession session, @ModelAttribute("newComment") Comment comment){
-        User userInSession = (User) session.getAttribute("user");
-        String usernameInSession = userInSession.getUsername();
-        User realUser = userRepository.getUserByUsername(usernameInSession);
+        User realUser = getUserFromSession(session);
         long userId = realUser.getId();
         Question actualQuestion = (Question) session.getAttribute("actualQuestion");
         long questionId = actualQuestion.getId();
