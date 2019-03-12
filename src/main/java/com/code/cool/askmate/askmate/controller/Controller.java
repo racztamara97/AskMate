@@ -109,7 +109,6 @@ public class Controller {
         return "redirect:/";
     }
 
-
     @GetMapping("/question")
     public String getQuestion(HttpSession session, Model model, @RequestParam(value = "questionButton") long id) {
         model.addAttribute("actualQuestion", questionRepository.getQuestionById(id));
@@ -118,15 +117,11 @@ public class Controller {
         return "question";
     }
 
-
-
     @PostMapping("/search")
     public String search(@RequestParam(value = "search") String search, Model model) {
         model.addAttribute("questions", questionRepository.findAllByQuestionTitleContaining(search));
         return "index";
     }
-
-
 
     @PostMapping("/vote")
     public String vote(HttpSession session, @RequestParam("voteType") String vote) {
@@ -143,7 +138,7 @@ public class Controller {
                 voteService.voteDown(questionId, userId);
             }
         }
-        return "redirect:/";
+        return "redirect:/question?questionButton=" + questionId;
     }
 
     @PostMapping("/sort")
@@ -163,30 +158,6 @@ public class Controller {
         return "index";
     }
 
-/*    @PostMapping("/title_ASC")
-    public String getQuestionsOrderedByTitleAsc(Model model) {
-        model.addAttribute("questions", questionRepository.findAllByOrderByQuestionTitleAsc());
-        return "index";
-    }
-
-    @PostMapping("/title_DESC")
-    public String getQuestionsOrderedByTitleDesc(Model model) {
-        model.addAttribute("questions", questionRepository.findAllByOrderByQuestionTitleDesc());
-        return "index";
-    }
-
-    @PostMapping("/vote_ASC")
-    public String voteAsc(Model model){
-        model.addAttribute("questions", questionRepository.findAllByOrderByVoteNumberAsc());
-        return "index";
-    }
-
-    @PostMapping("/vote_DESC")
-    public String voteDesc(Model model){
-        model.addAttribute("questions", questionRepository.findAllByOrderByVoteNumberDesc());
-        return "index";
-    }*/
-
     @GetMapping("/add_comment")
     public String addComment(Model model){
         model.addAttribute("newComment", new Comment());
@@ -200,7 +171,7 @@ public class Controller {
         Question actualQuestion = (Question) session.getAttribute("actualQuestion");
         long questionId = actualQuestion.getId();
         commentService.createNewComment(userId, questionId, comment);
-        return "redirect:/";
+        return "redirect:/question?questionButton=" + questionId;
     }
 
 }
