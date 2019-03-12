@@ -32,7 +32,23 @@
                         Sort
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <form action="#" th:action="@{/title_ASC}" method="post">
+                        <form action="#" th:action="@{/sort}" method="post">
+                            <button class="btn btn-link"><font color="black">By title ASC</font></button>
+                            <input type="hidden" name="sortType" th:value="titleAsc">
+                        </form>
+                        <form action="#" th:action="@{/sort}" method="post">
+                            <button class="btn btn-link"><font color="black">By title DESC</font></button>
+                            <input type="hidden" name="sortType" th:value="titleDesc">
+                        </form>
+                        <form action="#" th:action="@{/sort}" method="post">
+                            <button class="btn btn-link"><font color="black">By vote ASC</font></button>
+                            <input type="hidden" name="sortType" th:value="voteAsc">
+                        </form>
+                        <form action="#" th:action="@{/sort}" method="post">
+                            <button class="btn btn-link"><font color="black">By vote DESC</font></button>
+                            <input type="hidden" name="sortType" th:value="voteDesc">
+                        </form>
+                        <!--<form action="#" th:action="@{/title_ASC}" method="post">
                             <button class="btn btn-link"><font color="black">By title ASC</font></button>
                         </form>
                         <form action="#" th:action="@{/title_DESC}" method="post">
@@ -43,7 +59,7 @@
                         </form>
                         <form action="#" th:action="@{/vote_DESC}" method="post">
                             <button class="btn btn-link"><font color="black">By vote DESC</font></button>
-                        </form>
+                        </form>-->
 
                     </div>
                 </div>
