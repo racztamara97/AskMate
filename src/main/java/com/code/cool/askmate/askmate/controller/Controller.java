@@ -72,7 +72,10 @@ public class Controller {
     }
 
     @PostMapping("/registration")
-    public String registrationForm(HttpSession session, @ModelAttribute("newUser") User user) {
+    public String registrationForm(Model model, HttpSession session, @ModelAttribute("newUser") User user) {
+        if (!model.containsAttribute("userToLogin")) {
+            model.addAttribute("userToLogin", new User());
+        }
         userRepository.save(user);
         session.setAttribute("user", user);
         return "redirect:/";
@@ -111,8 +114,12 @@ public class Controller {
 
     @GetMapping("/question")
     public String getQuestion(HttpSession session, Model model, @RequestParam(value = "questionButton") long id) {
+        if (!model.containsAttribute("userToLogin")) {
+            model.addAttribute("userToLogin", new User());
+        }
         model.addAttribute("actualQuestion", questionRepository.getQuestionById(id));
         session.setAttribute("actualQuestion", questionRepository.getQuestionById(id));
+        model.addAttribute("newComment", new Comment());
         model.addAttribute("comments", commentRepository.findAllByQuestionId(id));
         return "question";
     }
@@ -158,19 +165,18 @@ public class Controller {
         return "index";
     }
 
-    @GetMapping("/add_comment")
+/*    @GetMapping("/add_comment")
     public String addComment(Model model){
         model.addAttribute("newComment", new Comment());
         return "new_comment";
-    }
+    }*/
 
     @PostMapping("/add_comment")
     public String addCommentForm(HttpSession session, @ModelAttribute("newComment") Comment comment){
         User realUser = getUserFromSession(session);
-        long userId = realUser.getId();
         Question actualQuestion = (Question) session.getAttribute("actualQuestion");
         long questionId = actualQuestion.getId();
-        commentService.createNewComment(userId, questionId, comment);
+        commentService.createNewComment(realUser, questionId, comment);
         return "redirect:/question?questionButton=" + questionId;
     }
 
