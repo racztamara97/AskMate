@@ -10,16 +10,18 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String commentText;
-    private long userId;
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    private User user;
+    //private long userId;
     private long questionId;
     private int voteNumber = 0;
 
     public Comment() {
     }
 
-    public Comment(String commentText, long userId, long questionId, int voteNumber) {
+    public Comment(String commentText, User user, long questionId, int voteNumber) {
         this.commentText = commentText;
-        this.userId = userId;
+        this.user = user;
         this.questionId = questionId;
         this.voteNumber = voteNumber;
     }
@@ -40,12 +42,12 @@ public class Comment {
         this.commentText = commentText;
     }
 
-    public long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public long getQuestionId() {
