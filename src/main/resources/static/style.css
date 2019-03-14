@@ -1,0 +1,26 @@
+.title {
+    margin: auto;
+    overflow: hidden;
+    background-color: lightgrey;
+    padding: 5px 15px 1px 15px;
+    border-radius: 25px;
+    text-align: center;
+    width: 90%;
+}
+
+.description {
+    margin: auto;
+    overflow: hidden;
+    background-color: #F5F5F5;
+    padding: 15px 30px 0px 30px;
+    border-radius: 25px;
+    /*
+    text-align: left;
+    */
+    width: 90%;
+}
+
+.inline {
+    display: inline;
+    float: right;
+}
