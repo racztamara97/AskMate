@@ -17,7 +17,7 @@
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
 
 </head>
 <body>
@@ -29,56 +29,58 @@
             <div class="thumbnail" th:object="${actualQuestion}">
                 <br>
                 <div class="title">
-                <h3 th:text="${actualQuestion.questionTitle}">question title</h3>
+                    <h3 th:text="${actualQuestion.questionTitle}">question title</h3>
                 </div>
                 <br>
-<!--
-                <h3 th:text="${actualQuestion.questionTitle}">question title</h3>
--->
+                <!--
+                                <h3 th:text="${actualQuestion.questionTitle}">question title</h3>
+                -->
                 <div class="caption">
                     <div class="description">
                         <p th:text="${actualQuestion.questionDescription}">question description</p>
-                    <p class="inline" align="right" th:text="${actualQuestion.user.getUsername()}">questioner</p>
-                    <p class="inline" align="right">questioner: </p>
+                        <p class="inline" align="right" th:text="${actualQuestion.user.getUsername()}">questioner</p>
+                        <p class="inline" align="right">questioner: </p>
                     </div>
                     <div>
-                    <p class="inline" align="left" th:text="${actualQuestion.voteNumber}">vote</p>
-                    <div th:if="${session.user} != null" class="col-sm float-right">
-                        <form action="#" th:action="@{/vote}" method="post" align="left">
-                            <button type="submit" class="btn btn-success inline">Vote up</button>
-                            <input type="hidden" name="voteType" th:value="up">
-                        </form>
-                        <form action="#" th:action="@{/vote}" method="post" align="left">
-                            <button type="submit" class="btn btn-danger inline">Vote down</button>
-                            <input type="hidden" name="voteType" th:value="down">
-                        </form>
-                        <!--<form action="#" th:action="@{/add_comment}" method="get" align="left">
-                            <button type="submit" class="btn btn-primary">Comment</button>
-                        </form>-->
+                        <p class="inline" align="left" th:text="${actualQuestion.voteNumber}">vote</p>
+                        <div th:if="${session.user} != null" class="col-sm float-right">
+                            <form action="#" th:action="@{/vote}" method="post" align="left">
+                                <button type="submit" class="btn btn-success inline">Vote up</button>
+                                <input type="hidden" name="voteType" th:value="up">
+                            </form>
+                            <form action="#" th:action="@{/vote}" method="post" align="left">
+                                <button type="submit" class="btn btn-danger inline">Vote down</button>
+                                <input type="hidden" name="voteType" th:value="down">
+                            </form>
+                            <!--<form action="#" th:action="@{/add_comment}" method="get" align="left">
+                                <button type="submit" class="btn btn-primary">Comment</button>
+                            </form>-->
 
-                        <form action="#" th:action="@{/add_comment}" th:object="${newComment}" method="post" align="center">
+                            <form action="#" th:action="@{/add_comment}" th:object="${newComment}" method="post"
+                                  align="center">
                                 <div class="form-group">
                                     <label><b>New comment: </b></label><br>
-                                    <textarea rows="5" cols="80" type="text" th:field="*{commentText}" placeholder="Comment" name="comment" required></textarea>
+                                    <textarea rows="5" cols="80" type="text" th:field="*{commentText}"
+                                              placeholder="Comment" name="comment" required></textarea>
                                 </div>
                                 <button type="submit" id="add_button">Create</button>
-                        </form>
+                            </form>
                         </div>
                     </div>
                     <h1>Comments: </h1>
                     <div class="thumbnail" th:each="comment: ${comments}">
-<!--
-                        <pre th:text="${comment.commentText}">text</pre>
--->
-<!--
-                        <p th:text="${comment.commentText}">Text</p>
--->
-<!--
-                        <p th:text="${comment.getUser().getId()}"></p>
--->
+                        <!--
+                                                <pre th:text="${comment.commentText}">text</pre>
+                        -->
+                        <!--
+                                                <p th:text="${comment.commentText}">Text</p>
+                        -->
+                        <!--
+                                                <p th:text="${comment.getUser().getId()}"></p>
+                        -->
                         <pre><span th:text="${comment.commentText}">text</span></pre>
                     </div>
-                    </div>
+                </div>
             </div>
         </div>
     </div>
