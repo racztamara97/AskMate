@@ -32,9 +32,6 @@
                     <h3 th:text="${actualQuestion.questionTitle}">question title</h3>
                 </div>
                 <br>
-                <!--
-                                <h3 th:text="${actualQuestion.questionTitle}">question title</h3>
-                -->
                 <div class="caption">
                     <div class="description">
                         <p th:text="${actualQuestion.questionDescription}">question description</p>
@@ -52,10 +49,6 @@
                                 <button type="submit" class="btn btn-danger inline">Vote down</button>
                                 <input type="hidden" name="voteType" th:value="down">
                             </form>
-                            <!--<form action="#" th:action="@{/add_comment}" method="get" align="left">
-                                <button type="submit" class="btn btn-primary">Comment</button>
-                            </form>-->
-
                             <form action="#" th:action="@{/add_comment}" th:object="${newComment}" method="post"
                                   align="center">
                                 <div class="form-group">
