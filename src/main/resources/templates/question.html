@@ -37,18 +37,19 @@
 -->
                 <div class="caption">
                     <div class="description">
-                        <p align="left" th:text="${actualQuestion.questionDescription}">question description</p>
-                        <p class="inline" align="right" th:text="${actualQuestion.user.getUsername()}">questioner</p>
-                        <p class="inline" align="right">questioner: </p>
+                        <p th:text="${actualQuestion.questionDescription}">question description</p>
+                    <p class="inline" align="right" th:text="${actualQuestion.user.getUsername()}">questioner</p>
+                    <p class="inline" align="right">questioner: </p>
                     </div>
-                    <p th:text="${actualQuestion.voteNumber}">vote</p>
+                    <div>
+                    <p class="inline" align="left" th:text="${actualQuestion.voteNumber}">vote</p>
                     <div th:if="${session.user} != null" class="col-sm float-right">
-                        <form class="inline" action="#" th:action="@{/vote}" method="post" align="left">
-                            <button type="submit" class="btn btn-success">Vote up</button>
+                        <form action="#" th:action="@{/vote}" method="post" align="left">
+                            <button type="submit" class="btn btn-success inline">Vote up</button>
                             <input type="hidden" name="voteType" th:value="up">
                         </form>
-                        <form class="inline" action="#" th:action="@{/vote}" method="post" align="left">
-                            <button type="submit" class="btn btn-danger">Vote down</button>
+                        <form action="#" th:action="@{/vote}" method="post" align="left">
+                            <button type="submit" class="btn btn-danger inline">Vote down</button>
                             <input type="hidden" name="voteType" th:value="down">
                         </form>
                         <!--<form action="#" th:action="@{/add_comment}" method="get" align="left">
