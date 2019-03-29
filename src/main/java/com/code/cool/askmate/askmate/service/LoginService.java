@@ -11,7 +11,7 @@ public class LoginService {
     UserRepository userRepository;
 
     public boolean checkUserExists(String username, String password) {
-        if(username.equals("") || password.equals("")){
+        if (username.equals("") || password.equals("")) {
             return false;
         }
         if ((userRepository.getUserByUsername(username)) == (userRepository.getUserByPassword(password))) {

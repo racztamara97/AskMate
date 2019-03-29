@@ -16,7 +16,7 @@ public class QuestionService {
     @Autowired
     UserRepository userRepository;
 
-    public void createNewQuestion(User myUser, Question question){
+    public void createNewQuestion(User myUser, Question question) {
 
         Question newQuestion = new Question();
         newQuestion.setUser(myUser);

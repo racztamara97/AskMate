@@ -50,7 +50,7 @@ public class Controller {
         return new Question();
     }
 
-    public User getUserFromSession(HttpSession session){
+    public User getUserFromSession(HttpSession session) {
         User userInSession = (User) session.getAttribute("user");
         String usernameInSession = userInSession.getUsername();
         return userRepository.getUserByUsername(usernameInSession);
@@ -149,14 +149,14 @@ public class Controller {
     }
 
     @PostMapping("/sort")
-    public String sort(Model model, @RequestParam("sortType") String sort){
-        if (sort.equals("titleAsc")){
+    public String sort(Model model, @RequestParam("sortType") String sort) {
+        if (sort.equals("titleAsc")) {
             model.addAttribute("questions", questionRepository.findAllByOrderByQuestionTitleAsc());
         }
-        if (sort.equals("titleDesc")){
+        if (sort.equals("titleDesc")) {
             model.addAttribute("questions", questionRepository.findAllByOrderByQuestionTitleDesc());
         }
-        if (sort.equals("voteAsc")){
+        if (sort.equals("voteAsc")) {
             model.addAttribute("questions", questionRepository.findAllByOrderByVoteNumberAsc());
         }
         if (sort.equals("voteDesc")) {
@@ -172,7 +172,7 @@ public class Controller {
     }*/
 
     @PostMapping("/add_comment")
-    public String addCommentForm(HttpSession session, @ModelAttribute("newComment") Comment comment){
+    public String addCommentForm(HttpSession session, @ModelAttribute("newComment") Comment comment) {
         User realUser = getUserFromSession(session);
         Question actualQuestion = (Question) session.getAttribute("actualQuestion");
         long questionId = actualQuestion.getId();

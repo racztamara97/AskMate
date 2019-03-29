@@ -34,12 +34,11 @@ public class VoteService {
         if (votesOfThisUser != null) {
             for (Vote actual : votesOfThisUser) {
                 if (actual.getQuestionId() == questionId) {
-                    if(actual.getType()!=type){
-                        if(actual.getType()==VoteType.UP){
-                            voteDown(questionId,userId);
-                        }
-                        else {
-                            voteUp(questionId,userId);
+                    if (actual.getType() != type) {
+                        if (actual.getType() == VoteType.UP) {
+                            voteDown(questionId, userId);
+                        } else {
+                            voteUp(questionId, userId);
                         }
                         voteRepository.delete(actual);
                         Vote delete = voteRepository.findVoteByUserIdAndQuestionId(userId, questionId);
